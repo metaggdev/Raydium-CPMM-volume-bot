@@ -16,6 +16,7 @@ import {
 	Keypair,
 	TransactionInstruction,
 	clusterApiUrl,
+  AccountMeta
 } from "@solana/web3.js";
 import BN from "bn.js";
 import { 
@@ -25,13 +26,34 @@ import {
 	Curve,
 	PlatformConfig,
 	LAUNCHPAD_PROGRAM,
+  CpmmRpcData,
+  CREATE_CPMM_POOL_AUTH,
+  CpmmKeys,
  } from "@raydium-io/raydium-sdk-v2";
-import Decimal from 'decimal.js'
 import { parseGlobalConfigAccount, parsePoolStateAccount, parsePlatformConfigAccount } from "./clients/encrypt";
 import { cluster, SELL_EXACT_IN_DISCRIMINATOR, BUY_EXACT_IN_DISCRIMINATOR, RaydiumLaunchPadAccountKeys, FEE_RATE_DENOMINATOR_VALUE, RAYDIUM_LAUNCHLAB_MAINNET_ADDR, LAUNCHPAD_AUTH_SEED, LAUNCHPAD_POOL_EVENT_AUTH_SEED } from "./clients/constants";
 import { BigNumber } from "bignumber.js";
+// import { struct } from "./clients/instruction";
+// import { u64 } from "./clients/marshmallow";
+import { Signer } from "@solana/web3.js";
+import { struct } from "./clients/instruction";
+import { u64 } from "./clients/marshmallow";
 
 let raydium: Raydium | undefined;
+
+const anchorDataBuf = {
+  initialize: [175, 175, 109, 31, 13, 152, 155, 237],
+  deposit: [242, 35, 198, 137, 82, 225, 242, 182],
+  withdraw: [183, 18, 70, 156, 148, 109, 161, 34],
+  swapBaseInput: [143, 190, 90, 218, 196, 30, 51, 222],
+  swapBaseOutput: [55, 217, 98, 86, 163, 74, 180, 173],
+  lockCpLiquidity: [216, 157, 29, 78, 38, 51, 31, 26],
+  collectCpFee: [8, 30, 51, 199, 209, 184, 247, 133],
+};
+
+// async function  getCpmmPoolKeys(poolId: string): Promise<CpmmKeys> {
+//   return ((await fetchPoolKeysById({ idList: [poolId] })) as CpmmKeys[])[0];
+// }
 
 export const burnAccount = async (wallet: Keypair, keypair: Keypair, connection: Connection, ata: PublicKey, tokenprogram: PublicKey) => {
 	const instructions: Array<TransactionInstruction> = [];
@@ -122,120 +144,6 @@ export async function getSPLTokenBalance(connection:Connection, tokenAccount:Pub
   return info.value.uiAmount;
 }
 
-export const buy = async (mint: string, amount: number, keypair: Keypair) => {
-  const raydium = await initSdk({ keypair })
-
-  const mintA = new PublicKey(mint)
-  const mintB = NATIVE_MINT
-  const inAmount = new BN(amount)
-
-  const programId = LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
-
-  const poolId = getPdaLaunchpadPoolId(programId, mintA, mintB).publicKey
-  const poolInfo = await raydium.launchpad.getRpcPoolInfo({ poolId })
-  const data = await raydium.connection.getAccountInfo(poolInfo.platformId)
-  const platformInfo = PlatformConfig.decode(data!.data)
-
-  const shareFeeReceiver = undefined
-  const shareFeeRate = shareFeeReceiver ? new BN(0) : new BN(10000) // do not exceed poolInfo.configInfo.maxShareFeeRate
-  const slippage = new BN(100) // means 1%
-  
-  const res = Curve.buyExactIn({
-    poolInfo,
-    amountB: inAmount,
-    protocolFeeRate: poolInfo.configInfo.tradeFeeRate,
-    platformFeeRate: platformInfo.feeRate,
-    curveType: poolInfo.configInfo.curveType,
-    shareFeeRate,
-  })
-
-  // Raydium UI usage: https://github.com/raydium-io/raydium-ui-v3-public/blob/master/src/store/useLaunchpadStore.ts#L563
-  let { transaction, extInfo, execute } = await raydium.launchpad.buyToken({
-    programId,
-    mintA,
-    // mintB: poolInfo.configInfo.mintB, // optional, default is sol
-    // minMintAAmount: res.amountA, // optional, default sdk will calculated by realtime rpc data
-    slippage,
-    configInfo: poolInfo.configInfo,
-    platformFeeRate: platformInfo.feeRate,
-    txVersion: TxVersion.V0,
-    buyAmount: inAmount,
-    // shareFeeReceiver, // optional
-    // shareFeeRate,  // optional, do not exceed poolInfo.configInfo.maxShareFeeRate
-
-    // computeBudgetConfig: {
-    //   units: 600000,
-    //   microLamports: 600000,
-    // },
-  })
-  
-  console.log('expected receive amount:', extInfo.outAmount.toString())
-  // printSimulate([transaction])
-  try {
-    const sentInfo = await execute({ sendAndConfirm: true })
-    console.log(sentInfo)
-    return transaction;
-  } catch (e: any) {
-    console.log(e)
-  }
-
-  process.exit() // if you don't want to end up node execution, comment this line
-}
-
-export const sell = async (mint: string, amount: number, keypair: Keypair) => {
-  const raydium = await initSdk()
-
-  const mintA = new PublicKey(mint);
-  const mintB = NATIVE_MINT
-
-  const programId = LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
-
-  const poolId = getPdaLaunchpadPoolId(programId, mintA, mintB).publicKey
-  const poolInfo = await raydium.launchpad.getRpcPoolInfo({ poolId })
-  const data = await raydium.connection.getAccountInfo(poolInfo.platformId)
-  const platformInfo = PlatformConfig.decode(data!.data)
-
-  const inAmount = new BN(amount)
-  const shareFeeReceiver = undefined
-  const shareFeeRate = shareFeeReceiver ? new BN(0) : new BN(10000) // do not exceed poolInfo.configInfo.maxShareFeeRate
-  const slippage = new BN(100) // means 1%
-
-  const res = Curve.sellExactIn({
-    poolInfo,
-    amountA: inAmount,
-    protocolFeeRate: poolInfo.configInfo.tradeFeeRate,
-    platformFeeRate: platformInfo.feeRate,
-    curveType: poolInfo.configInfo.curveType,
-    shareFeeRate,
-  })
-  console.log(
-    'expected out amount: ',
-    res.amountB.toString(),
-    'minimum out amount: ',
-    new Decimal(res.amountB.toString()).mul((10000 - slippage.toNumber()) / 10000).toFixed(0)
-  )
-
-  // Raydium UI usage: https://github.com/raydium-io/raydium-ui-v3-public/blob/master/src/store/useLaunchpadStore.ts#L637
-  const { execute, transaction, builder } = await raydium.launchpad.sellToken({
-    programId,
-    mintA,
-    // mintB, // default is sol
-    configInfo: poolInfo.configInfo,
-    platformFeeRate: platformInfo.feeRate,
-    txVersion: TxVersion.V0,
-    sellAmount: inAmount,
-  })
-
-  // printSimulate([transaction])
-  try {
-    return transaction
-  } catch (e: any) {
-    console.log(e)
-  }
-
-  process.exit() // if you don't want to end up node execution, comment this line
-}
-
 export const initSdk = async (params?: { loadToken?: boolean, keypair: Keypair }) => {
   if (raydium) return raydium
   if (connection.rpcEndpoint === clusterApiUrl('mainnet-beta'))
@@ -308,181 +216,163 @@ export async function getSwapQuote(baseAmountIn: number, inputMint: string, toke
 }
 
 export async function getSwapInstruction(
-    amountIn: number,
-    minAmountOut: number,
-    swapAccountkey: RaydiumLaunchPadAccountKeys,
-    mint: PublicKey
+  amount: number,
+	poolId: PublicKey,
+	poolInfo: CpmmRpcData,
+	token0: PublicKey,
+	token0ATA: PublicKey,
+	token1: PublicKey,
+	token1ATA: PublicKey,
+	buyer: Signer,
+	direction: "buy" | "sell"
 ): Promise<TransactionInstruction | null> {
-  
+// ){
   // const amount = await getSwapQuote(amountIn, swapAccountkey.inputMint.toBase58(), mint.toBase58());
-  const poolInfo = await getPoolInfo(mint.toBase58());
-  const { inputMint, payer } = swapAccountkey;
-  const [authority] = PublicKey.findProgramAddressSync([LAUNCHPAD_AUTH_SEED], RAYDIUM_LAUNCHLAB_MAINNET_ADDR);
-  const [eventAuth] = PublicKey.findProgramAddressSync([LAUNCHPAD_POOL_EVENT_AUTH_SEED], RAYDIUM_LAUNCHLAB_MAINNET_ADDR);
-  if (!poolInfo?.poolData) {
-    return null
-  }
-  
-  const baseUserAta = getAssociatedTokenAddressSync(poolInfo?.poolData.baseMint, payer);
-  const quoteUserAta = getAssociatedTokenAddressSync(poolInfo?.poolData.quoteMint, payer);
+	const rayprogram_id = new PublicKey("CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C");
+  // const poolKeys = await getCpmmPoolKeys(poolId.toBase58());
+	const authority = CREATE_CPMM_POOL_AUTH;
 
-  if (inputMint.toBase58() == NATIVE_MINT.toBase58()) {
-      return buyExactInIx(
-          RAYDIUM_LAUNCHLAB_MAINNET_ADDR,
-          payer,
-          authority,
-          poolInfo?.poolData.globalConfig,
-          poolInfo?.poolData.platformConfig,
-          poolInfo.poolId,
-          baseUserAta,
-          quoteUserAta,
-          poolInfo?.poolData.baseVault,
-          poolInfo?.poolData.quoteVault,
-          poolInfo?.poolData.baseMint,
-          poolInfo?.poolData.quoteMint,
-          TOKEN_PROGRAM_ID,
-          TOKEN_PROGRAM_ID,
-          eventAuth,
-          amountIn,
-          minAmountOut,
-          0
-      )
-  } else {
-      return sellExactInIx(
-          RAYDIUM_LAUNCHLAB_MAINNET_ADDR,
-          payer,
-          authority,
-          poolInfo?.poolData.globalConfig,
-          poolInfo?.poolData.platformConfig,
-          poolInfo.poolId,
-          baseUserAta,
-          quoteUserAta,
-          poolInfo?.poolData.baseVault,
-          poolInfo?.poolData.quoteVault,
-          poolInfo?.poolData.baseMint,
-          poolInfo?.poolData.quoteMint,
-          TOKEN_PROGRAM_ID,
-          TOKEN_PROGRAM_ID,
-          eventAuth,
-          amountIn * 10 ** poolInfo?.poolData.baseDecimals,
-          minAmountOut,
-          0
-      )
-  }
+	// Based on direction, pick input vs output
+	const inputTokenAccount = direction === "buy" ? token0ATA : token1ATA;
+	const outputTokenAccount = direction === "sell" ? token0ATA : token1ATA;
+	const inputTokenMint = direction === "buy" ? token0 : token1;
+	const outputTokenMint = direction === "sell" ? token0 : token1;
 
+	// Identify the correct vaults and mint programs
+	const inputVault = poolInfo.mintA.equals(inputTokenMint) ? poolInfo.vaultA : poolInfo.vaultB;
+	const outputVault = poolInfo.mintA.equals(outputTokenMint) ? poolInfo.vaultA : poolInfo.vaultB;
+
+	const inputTokenProgram = poolInfo.mintA.equals(inputTokenMint) ? poolInfo.mintProgramA : poolInfo.mintProgramB;
+	const outputTokenProgram = poolInfo.mintA.equals(outputTokenMint) ? poolInfo.mintProgramA : poolInfo.mintProgramB;
+	const observationState = poolInfo.observationId;
+  let txInstruction
+   = buyExactInIx(
+    rayprogram_id,
+    buyer.publicKey,
+    authority, // new PublicKey(poolKeys.authority),
+    poolInfo.configId, // new PublicKey(poolKeys.config.id),
+    poolId,
+    inputTokenAccount,
+    outputTokenAccount,
+    inputVault,
+    outputVault,
+    inputTokenProgram,
+    outputTokenProgram,
+    inputTokenMint,
+    outputTokenMint,
+    observationState,
+    new BN(amount),
+    new BN(0)
+  );
+
+  return txInstruction
 }
 
 export function buyExactInIx(
-    programId: PublicKey,
-    payer: PublicKey,
-    authority: PublicKey,
-    globalConfig: PublicKey,
-    platformConfig: PublicKey,
-    poolState: PublicKey,
-    userBaseToken: PublicKey,
-    userQuoteToken: PublicKey,
-    baseVault: PublicKey,
-    quoteVault: PublicKey,
-    baseTokenMint: PublicKey,
-    quoteTokenMint: PublicKey,
-    baseTokenProgram: PublicKey,
-    quoteTokenProgram: PublicKey,
-    eventAuthority: PublicKey,
-    amountIn: number,
-    minimumAmountOut: number,
-    shareFeeRate: number
+  programId: PublicKey,
+  payer: PublicKey,
+  authority: PublicKey,
+  configId: PublicKey,
+  poolId: PublicKey,
+  userInputAccount: PublicKey,
+  userOutputAccount: PublicKey,
+  inputVault: PublicKey,
+  outputVault: PublicKey,
+  inputTokenProgram: PublicKey,
+  outputTokenProgram: PublicKey,
+  inputMint: PublicKey,
+  outputMint: PublicKey,
+  observationId: PublicKey,
+
+  amountIn: BN,
+  amounOutMin: BN,
 ): TransactionInstruction {
 
-    const discriminator = Buffer.from(BUY_EXACT_IN_DISCRIMINATOR); // Raydium v4 swap_base_in discriminator
-    const amountInBuf = Buffer.alloc(8);
-    const minimumAmountOutBuf = Buffer.alloc(8);
-    const shareFeeRateBuf = Buffer.alloc(8);
-    
-    amountInBuf.writeBigUInt64LE(BigInt(Math.floor(amountIn)));
-    minimumAmountOutBuf.writeBigUInt64LE(BigInt(minimumAmountOut));
-    shareFeeRateBuf.writeBigUInt64LE(BigInt(shareFeeRate));
-    
-    const data = Buffer.concat([discriminator, amountInBuf, minimumAmountOutBuf, shareFeeRateBuf]);
-    
-    
-    const keys = [
-        { pubkey: payer, isSigner: true, isWritable: false },
-        { pubkey: authority, isSigner: false, isWritable: false },
-        { pubkey: globalConfig, isSigner: false, isWritable: false },
-        { pubkey: platformConfig, isSigner: false, isWritable: false },
-        { pubkey: poolState, isSigner: false, isWritable: true },
-        { pubkey: userBaseToken, isSigner: false, isWritable: true },
-        { pubkey: userQuoteToken, isSigner: false, isWritable: true },
-        { pubkey: baseVault, isSigner: false, isWritable: true },
-        { pubkey: quoteVault, isSigner: false, isWritable: true },
-        { pubkey: baseTokenMint, isSigner: false, isWritable: false },
-        { pubkey: quoteTokenMint, isSigner: false, isWritable: false },
-        { pubkey: baseTokenProgram, isSigner: false, isWritable: false },
-        { pubkey: quoteTokenProgram, isSigner: false, isWritable: false },
-        { pubkey: eventAuthority, isSigner: false, isWritable: false },
-        { pubkey: programId, isSigner: false, isWritable: false },
-    ];
-    
-    return new TransactionInstruction({
-        keys,
-        programId,
-        data,
-    });
+  const dataLayout = struct([u64("amountIn"), u64("amounOutMin")]);
+
+  const keys: Array<AccountMeta> = [
+    { pubkey: payer, isSigner: true, isWritable: false },
+    { pubkey: authority, isSigner: false, isWritable: false },
+    { pubkey: configId, isSigner: false, isWritable: false },
+    { pubkey: poolId, isSigner: false, isWritable: true },
+    { pubkey: userInputAccount, isSigner: false, isWritable: true },
+    { pubkey: userOutputAccount, isSigner: false, isWritable: true },
+    { pubkey: inputVault, isSigner: false, isWritable: true },
+    { pubkey: outputVault, isSigner: false, isWritable: true },
+    { pubkey: inputTokenProgram, isSigner: false, isWritable: false },
+    { pubkey: outputTokenProgram, isSigner: false, isWritable: false },
+    { pubkey: inputMint, isSigner: false, isWritable: false },
+    { pubkey: outputMint, isSigner: false, isWritable: false },
+    { pubkey: observationId, isSigner: false, isWritable: true },
+  ];
+
+  const data = Buffer.alloc(dataLayout.span);
+  dataLayout.encode(
+    {
+      amountIn,
+      amounOutMin,
+    },
+    data,
+  );
+
+  return new TransactionInstruction({
+    keys,
+    programId,
+    data: Buffer.from([...anchorDataBuf.swapBaseInput, ...data]),
+  });
 }
 
 export function sellExactInIx(
-    programId: PublicKey,
-    payer: PublicKey,
-    authority: PublicKey,
-    globalConfig: PublicKey,
-    platformConfig: PublicKey,
-    poolState: PublicKey,
-    userBaseToken: PublicKey,
-    userQuoteToken: PublicKey,
-    baseVault: PublicKey,
-    quoteVault: PublicKey,
-    baseTokenMint: PublicKey,
-    quoteTokenMint: PublicKey,
-    baseTokenProgram: PublicKey,
-    quoteTokenProgram: PublicKey,
-    eventAuthority: PublicKey,
-    amountIn: number,
-    minimumAmountOut: number,
-    shareFeeRate: number
+  programId: PublicKey,
+  payer: PublicKey,
+  authority: PublicKey,
+  configId: PublicKey,
+  poolId: PublicKey,
+  userInputAccount: PublicKey,
+  userOutputAccount: PublicKey,
+  inputVault: PublicKey,
+  outputVault: PublicKey,
+  inputTokenProgram: PublicKey,
+  outputTokenProgram: PublicKey,
+  inputMint: PublicKey,
+  outputMint: PublicKey,
+  observationId: PublicKey,
+
+  amountInMax: BN,
+  amountOut: BN,
 ): TransactionInstruction {
-    const discriminator = Buffer.from(SELL_EXACT_IN_DISCRIMINATOR); // Raydium v4 swap_base_in discriminator
-    const amountInBuf = Buffer.alloc(8);
-    const minimumAmountOutBuf = Buffer.alloc(8);
-    const shareFeeRateBuf = Buffer.alloc(8);
-    amountInBuf.writeBigUInt64LE(BigInt(amountIn));
-    minimumAmountOutBuf.writeBigUInt64LE(BigInt(minimumAmountOut));
-    shareFeeRateBuf.writeBigUInt64LE(BigInt(shareFeeRate));
-    
-    const data = Buffer.concat([discriminator, amountInBuf, minimumAmountOutBuf, shareFeeRateBuf]);
+  const dataLayout = struct([u64("amountInMax"), u64("amountOut")]);
 
-    const keys = [
-        { pubkey: payer, isSigner: true, isWritable: false },
-        { pubkey: authority, isSigner: false, isWritable: false },
-        { pubkey: globalConfig, isSigner: false, isWritable: false },
-        { pubkey: platformConfig, isSigner: false, isWritable: false },
-        { pubkey: poolState, isSigner: false, isWritable: true },
-        { pubkey: userBaseToken, isSigner: false, isWritable: true },
-        { pubkey: userQuoteToken, isSigner: false, isWritable: true },
-        { pubkey: baseVault, isSigner: false, isWritable: true },
-        { pubkey: quoteVault, isSigner: false, isWritable: true },
-        { pubkey: baseTokenMint, isSigner: false, isWritable: false },
-        { pubkey: quoteTokenMint, isSigner: false, isWritable: false },
-        { pubkey: baseTokenProgram, isSigner: false, isWritable: false },
-        { pubkey: quoteTokenProgram, isSigner: false, isWritable: false },
-        { pubkey: eventAuthority, isSigner: false, isWritable: false },
-        { pubkey: programId, isSigner: false, isWritable: false },
-    ];
+  const keys: Array<AccountMeta> = [
+    { pubkey: payer, isSigner: true, isWritable: false },
+    { pubkey: authority, isSigner: false, isWritable: false },
+    { pubkey: configId, isSigner: false, isWritable: false },
+    { pubkey: poolId, isSigner: false, isWritable: true },
+    { pubkey: userInputAccount, isSigner: false, isWritable: true },
+    { pubkey: userOutputAccount, isSigner: false, isWritable: true },
+    { pubkey: inputVault, isSigner: false, isWritable: true },
+    { pubkey: outputVault, isSigner: false, isWritable: true },
+    { pubkey: inputTokenProgram, isSigner: false, isWritable: false },
+    { pubkey: outputTokenProgram, isSigner: false, isWritable: false },
+    { pubkey: inputMint, isSigner: false, isWritable: false },
+    { pubkey: outputMint, isSigner: false, isWritable: false },
+    { pubkey: observationId, isSigner: false, isWritable: true },
+  ];
 
-    return new TransactionInstruction({
-        keys,
-        programId,
-        data,
-    });
+  const data = Buffer.alloc(dataLayout.span);
+  dataLayout.encode(
+    {
+      amountInMax,
+      amountOut,
+    },
+    data,
+  );
+
+  return new TransactionInstruction({
+    keys,
+    programId,
+    data: Buffer.from([...anchorDataBuf.swapBaseOutput, ...data]),
+  });
 }
 
 export function calculateFee({ amount, feeRate }: { amount: BigNumber; feeRate: BigNumber }): BigNumber {

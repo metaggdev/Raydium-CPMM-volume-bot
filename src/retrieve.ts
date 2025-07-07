@@ -6,7 +6,7 @@ import path from "path";
 import promptSync from "prompt-sync";
 import chalk from "chalk";
 import { retryOperation, pause } from "./clients/utils";
-import { burnAccount, getSwapInstruction, sell } from "./utils";
+import { getSwapInstruction } from "./utils";
 
 import { sendBundle, sendTransactionsSequentially } from "./bot";
 import { ComputeBudgetProgram } from "@solana/web3.js";
@@ -120,12 +120,12 @@ export async function closeAcc() {
 					});
 					instructionsForChunk = [modifyComputeUnits, modifyComputeFee]
 					// Sell instructions
-					const sellInstruction = await getSwapInstruction(tokenAmount, 0, swapAccountKey, tokenKey);
+					// const sellInstruction = await getSwapInstruction(tokenAmount, 0, swapAccountKey, tokenKey);
 
-					if (sellInstruction && tokenAmount > 0) {
-						instructionsForChunk.push(sellInstruction);
-						console.log(chalk.green(`Added Bonk.fun token sell instructions for ${tokenAmountString} tokens`));
-					}
+					// if (sellInstruction && tokenAmount > 0) {
+					// 	instructionsForChunk.push(sellInstruction);
+					// 	console.log(chalk.green(`Added Bonk.fun token sell instructions for ${tokenAmountString} tokens`));
+					// }
 
 					// Burn token account
 					let baseTokenBurnInstruction = spl.createCloseAccountInstruction(tokenAcc, wallet.publicKey, keypair.publicKey);
@@ -256,12 +256,12 @@ export async function closeSpecificAcc(keypairs: Keypair[], mint: string, block:
 				payer : keypair.publicKey
 			}
 			// Sell instructions - convert tokens to WSOL
-			const sellInstruction = await getSwapInstruction(Number(tokenBalance.value.uiAmountString), 0, swapAccountKey, new PublicKey(mint));
+			// const sellInstruction = await getSwapInstruction(Number(tokenBalance.value.uiAmountString), 0, swapAccountKey, new PublicKey(mint));
 
-			if (sellInstruction) {
-				instructionsForChunk.push(sellInstruction);
-				console.log(chalk.green(`Added bonk.fun token sell instructions for ${Number(tokenBalance.value.uiAmountString)} tokens`));
-			}
+			// if (sellInstruction) {
+			// 	instructionsForChunk.push(sellInstruction);
+			// 	console.log(chalk.green(`Added bonk.fun token sell instructions for ${Number(tokenBalance.value.uiAmountString)} tokens`));
+			// }
 			
 			// Burn token account
 			let baseTokenBurnInstruction = spl.createCloseAccountInstruction(tokenAcc, wallet.publicKey, keypair.publicKey);

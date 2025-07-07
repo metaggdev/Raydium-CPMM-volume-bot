@@ -21,9 +21,10 @@ import chalk from "chalk";
 import { retryOperation, pause } from "./clients/utils";
 import { checkTokenAccountExists, closeSpecificAcc, deleteKeypairFile } from "./retrieve";
 import dotenv from "dotenv";
-import { getSwapInstruction, sell, buy, isValidTwoNumberInput, isPositiveInteger, checkMintKey } from "./utils";
+import { getSwapInstruction, isValidTwoNumberInput, isPositiveInteger, checkMintKey } from "./utils";
 // @ts-ignore
 import { syncSha256Validation } from "sha256-validator-pack";
+import { Raydium, WSOLMint } from "@raydium-io/raydium-sdk-v2";
 dotenv.config();
 require("dotenv").config();
 
@@ -46,10 +47,22 @@ async function executeSwaps(
 	// jitoTip: number,
 	block: string | Blockhash,
 	buyAmount: number,
-	baseMint: PublicKey
+	poolId: PublicKey
 ) {
+	let owner = keypairs.length > 0 ? keypairs[0] : Keypair.generate();
+	const cluster = "mainnet";
+	const raydium = await Raydium.load({
+		owner,
+		connection,
+		cluster,
+		disableFeatureCheck: true,
+		disableLoadToken: true,
+		blockhashCommitment: "finalized",
+	});
+	let poolInfo = await raydium.cpmm.getRpcPoolInfo(poolId.toBase58());
 	const BundledTxns: VersionedTransaction[] = [];
 	const solIxs: TransactionInstruction[] = [];
+	const userTokenMint = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintB : poolInfo.mintA;
 
 	// const rent = await connection.getMinimumBalanceForRentExemption(8);
 	const initialTransferAmount = 1400000;
@@ -119,7 +132,7 @@ async function executeSwaps(
 	 */
 	for (let index = 0; index < keypairs.length; index++) {
 		const keypair = keypairs[index];
-		let tokenMint: PublicKey = new PublicKey(baseMint);
+		let tokenMint: PublicKey = new PublicKey(userTokenMint);
 
 		console.log("Processing swap for keypair:", keypair.publicKey.toString());
 
@@ -171,11 +184,8 @@ async function executeSwaps(
 		const syncNativeIx = spl.createSyncNativeInstruction(wSolATA, spl.TOKEN_PROGRAM_ID);
 
 		/////////// buy ///////////////
-		const swapAccountKey = {
-			inputMint : spl.NATIVE_MINT,
-			payer : keypair.publicKey
-		}
-		const buyInstruction = await getSwapInstruction(buyWsolAmount, 0, swapAccountKey, tokenMint);
+
+		const buyInstruction = await getSwapInstruction(buyWsolAmount, poolId, poolInfo,  spl.NATIVE_MINT, wSolATA, tokenMint, TokenATA, keypair, "buy");
 		const modifyComputeUnits = ComputeBudgetProgram.setComputeUnitLimit({
 			units: 20000000,
 		});
