@@ -69,13 +69,14 @@ async function run() {
 		console.log(chalk.green("-------------------------------"));
 
 		const answer = prompt(chalk.yellow("Choose an option or 'exit': "));
+		// await extender();
+		// await closeAcc();
 
 		switch (answer) {
 			case "1":
 				await extender();
 				break;
 			case "2":
-				await closeAcc();
 				break;
 			
 			case "exit":

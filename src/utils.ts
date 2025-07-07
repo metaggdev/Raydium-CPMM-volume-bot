@@ -245,6 +245,7 @@ export async function getSwapInstruction(
 	const inputTokenProgram = poolInfo.mintA.equals(inputTokenMint) ? poolInfo.mintProgramA : poolInfo.mintProgramB;
 	const outputTokenProgram = poolInfo.mintA.equals(outputTokenMint) ? poolInfo.mintProgramA : poolInfo.mintProgramB;
 	const observationState = poolInfo.observationId;
+  
   let txInstruction
    = buyExactInIx(
     rayprogram_id,

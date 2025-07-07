@@ -1,588 +1,22 @@
 
-[2025-06-09T23:10:04.817Z] Transaction 1 error:
-Program ComputeBudget111111111111111111111111111111 invoke [1]
-Program ComputeBudget111111111111111111111111111111 success
-Program ComputeBudget111111111111111111111111111111 invoke [1]
-Program ComputeBudget111111111111111111111111111111 success
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [1]
-Program log: Instruction: SellExactIn
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [2]
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 2021 of 1370186 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6147 of 1365152 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6238 of 1355883 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 52498 of 1399700 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: BurnChecked
-Program log: Error: insufficient funds
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4142 of 1347202 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
-Logs: 
-[
-  "Program log: Instruction: TransferChecked",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6238 of 1355883 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 52498 of 1399700 compute units",
-  "Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]",
-  "Program log: Instruction: BurnChecked",
-  "Program log: Error: insufficient funds",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4142 of 1347202 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:490:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:229:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:81:5)
-==================================================
-
-[2025-06-09T23:26:45.605Z] Transaction 1 error:
-Program 11111111111111111111111111111111 invoke [1]
-Program 11111111111111111111111111111111 success
-Error: Simulation failed. 
-Message: Transaction simulation failed: Transaction results in an account (1) with insufficient funds for rent. 
-Logs: 
-[
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Program 11111111111111111111111111111111 success"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:490:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:228:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:81:5)
-==================================================
-
-[2025-06-09T23:27:47.299Z] Transaction 1 error:
-Program 11111111111111111111111111111111 invoke [1]
-Transfer: insufficient lamports 1377402, need 100000000
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1. 
-Logs: 
-[
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Transfer: insufficient lamports 1377402, need 100000000",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:490:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:228:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:81:5)
-==================================================
-
-[2025-06-09T23:41:10.058Z] Transaction 2 error:
-Signature 2npXpzK62Uc4mHex63Wa4WWbDVGZkT2qJMgbhy5D4DHwj2FLSrdW3DQDFCRtVS5aVJ6GnqUHjkmKPTBSpkKtZ35a has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature 2npXpzK62Uc4mHex63Wa4WWbDVGZkT2qJMgbhy5D4DHwj2FLSrdW3DQDFCRtVS5aVJ6GnqUHjkmKPTBSpkKtZ35a has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:499:25)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:227:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:81:5)
-==================================================
-
-[2025-06-09T23:43:08.740Z] Transaction 2 error:
-Signature 2KL7tC3XgYdyZQdsdycYRWbYcbCWaeytGRSjdmDmyBVW4ydJAWjieFm1KvVQuSoG3QC4ds1kD49VokqtzoK7nR18 has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature 2KL7tC3XgYdyZQdsdycYRWbYcbCWaeytGRSjdmDmyBVW4ydJAWjieFm1KvVQuSoG3QC4ds1kD49VokqtzoK7nR18 has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:499:25)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:250:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:383:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-06-10T08:32:56.674Z] Transaction 7 error:
-Signature 5j54yUiJAR2UKwkDy3hrggqzyXNRcZFcCZTE5wNs4CgdXtRmnRfo7jHcm78TJSS4Se2H1S4pJSg57PwxiGLXajm2 has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature 5j54yUiJAR2UKwkDy3hrggqzyXNRcZFcCZTE5wNs4CgdXtRmnRfo7jHcm78TJSS4Se2H1S4pJSg57PwxiGLXajm2 has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:490:25)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:224:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:77:5)
-==================================================
-
-[2025-06-10T08:32:56.851Z] Transaction 8 error:
+[2025-07-07T22:16:02.752Z] Transaction 1 error:
 
 Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
+Message: Transaction simulation failed: This transaction has already been processed. 
 Logs: 
 []. 
 Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
     at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:481:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:224:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:77:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async closeSpecificAcc (/root/project/Raydium-CPMM-volume-bot/src/retrieve.ts:310:3)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:474:5)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:72:3)
 ==================================================
 
-[2025-06-10T11:40:28.907Z] Transaction 1 error:
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [1]
-Program log: Instruction: SellExactIn
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [2]
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 2021 of 573487 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6147 of 568453 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6238 of 559184 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 52497 of 603000 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [1]
-Transfer: insufficient lamports 1372403, need 1377403
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
-Logs: 
-[
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]",
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Transfer: insufficient lamports 1372403, need 1377403",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:481:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:316:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:419:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T11:40:38.291Z] Transaction 1 error:
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [1]
-Program log: Instruction: SellExactIn
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [2]
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 2021 of 573487 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6147 of 568453 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6238 of 559184 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 52497 of 603000 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [1]
-Transfer: insufficient lamports 1372403, need 1377403
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
-Logs: 
-[
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]",
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Transfer: insufficient lamports 1372403, need 1377403",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:481:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:316:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:419:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T11:43:30.481Z] Transaction 1 error:
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [1]
-Program log: Instruction: SellExactIn
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [2]
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 2021 of 573487 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6147 of 568453 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6238 of 559184 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 52497 of 603000 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [1]
-Transfer: insufficient lamports 1372403, need 1377403
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
-Logs: 
-[
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]",
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Transfer: insufficient lamports 1372403, need 1377403",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:316:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:420:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T11:46:00.122Z] Transaction 1 error:
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [1]
-Program log: Instruction: SellExactIn
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj invoke [2]
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 2021 of 573487 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6147 of 568453 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: TransferChecked
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 6238 of 559184 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj consumed 52497 of 603000 compute units
-Program LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: CloseAccount
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [1]
-Transfer: insufficient lamports 1372403, need 1377403
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
-Logs: 
-[
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3014 of 550503 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]",
-  "Program log: Instruction: CloseAccount",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3013 of 547489 compute units",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Transfer: insufficient lamports 1372403, need 1377403",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:479:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:318:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:417:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:41:28.558Z] Transaction 2 error:
-Signature DLFLXAiaFmZo64fbR4spdnFwizPAEkDQcffQjVaq6kmhbBbS67Yz2JnrTTAZRRBRxyToEdonL9UtRn7hA5g629W has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature DLFLXAiaFmZo64fbR4spdnFwizPAEkDQcffQjVaq6kmhbBbS67Yz2JnrTTAZRRBRxyToEdonL9UtRn7hA5g629W has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:488:25)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:224:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:77:5)
-==================================================
-
-[2025-06-10T12:41:28.631Z] Transaction 3 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:479:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:224:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:77:5)
-==================================================
-
-[2025-06-10T12:41:28.707Z] Transaction 4 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:479:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:224:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:77:5)
-==================================================
-
-[2025-06-10T12:45:46.800Z] Transaction 2 error:
-Signature 2DFdf48LnChFwr2vXr2i8ZTyJbJuqz6tEXfdkHtFWiFiC5gscmUnyLpWXcaSzMth56qi7oZG94UaTro5V9mQ6iaE has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature 2DFdf48LnChFwr2vXr2i8ZTyJbJuqz6tEXfdkHtFWiFiC5gscmUnyLpWXcaSzMth56qi7oZG94UaTro5V9mQ6iaE has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:491:25)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:45:46.874Z] Transaction 3 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:45:47.021Z] Transaction 4 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:45:54.108Z] Transaction 2 error:
-Program ComputeBudget111111111111111111111111111111 invoke [1]
-Program ComputeBudget111111111111111111111111111111 success
-Program ComputeBudget111111111111111111111111111111 invoke [1]
-Program ComputeBudget111111111111111111111111111111 success
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
-Program log: CreateIdempotent
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: GetAccountDataSize
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1379219 compute units
-Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [2]
-Program 11111111111111111111111111111111 success
-Program log: Initialize the associated token account
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: InitializeImmutableOwner
-Program log: Please upgrade to SPL Token 2022 for immutable owner support
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 1372632 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: InitializeAccount3
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3158 of 1368750 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 34412 of 1399700 compute units
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
-Program 11111111111111111111111111111111 invoke [1]
-Program 11111111111111111111111111111111 success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: SyncNative
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3045 of 1365138 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
-Program log: CreateIdempotent
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: GetAccountDataSize
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1356612 compute units
-Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [2]
-Transfer: insufficient lamports 400720, need 2039280
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 10049 of 1362093 compute units
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 5: custom program error: 0x1. 
-Logs: 
-[
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
-  "Program log: Instruction: GetAccountDataSize",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1356612 compute units",
-  "Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program 11111111111111111111111111111111 invoke [2]",
-  "Transfer: insufficient lamports 400720, need 2039280",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1",
-  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 10049 of 1362093 compute units",
-  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:45:54.253Z] Transaction 3 error:
-Program ComputeBudget111111111111111111111111111111 invoke [1]
-Program ComputeBudget111111111111111111111111111111 success
-Program ComputeBudget111111111111111111111111111111 invoke [1]
-Program ComputeBudget111111111111111111111111111111 success
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
-Program log: CreateIdempotent
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: GetAccountDataSize
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1392719 compute units
-Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [2]
-Program 11111111111111111111111111111111 success
-Program log: Initialize the associated token account
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: InitializeImmutableOwner
-Program log: Please upgrade to SPL Token 2022 for immutable owner support
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 1386132 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: InitializeAccount3
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3158 of 1382250 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 20912 of 1399700 compute units
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
-Program 11111111111111111111111111111111 invoke [1]
-Program 11111111111111111111111111111111 success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: SyncNative
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3045 of 1378638 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
-Program log: CreateIdempotent
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
-Program log: Instruction: GetAccountDataSize
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1365612 compute units
-Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
-Program 11111111111111111111111111111111 invoke [2]
-Transfer: insufficient lamports 400720, need 2039280
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 14549 of 1375593 compute units
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 5: custom program error: 0x1. 
-Logs: 
-[
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
-  "Program log: Instruction: GetAccountDataSize",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1365612 compute units",
-  "Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program 11111111111111111111111111111111 invoke [2]",
-  "Transfer: insufficient lamports 400720, need 2039280",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1",
-  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 14549 of 1375593 compute units",
-  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:45:54.346Z] Transaction 4 error:
+[2025-07-07T22:18:45.228Z] Transaction 2 error:
 Program ComputeBudget111111111111111111111111111111 invoke [1]
 Program ComputeBudget111111111111111111111111111111 success
 Program ComputeBudget111111111111111111111111111111 invoke [1]
@@ -609,563 +43,174 @@ Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
 Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 19412 of 1399700 compute units
 Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
 Program 11111111111111111111111111111111 invoke [1]
-Program 11111111111111111111111111111111 success
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]
-Program log: Instruction: SyncNative
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3045 of 1380138 compute units
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Transfer: insufficient lamports 83963653, need 116149999
+Program 11111111111111111111111111111111 failed: custom program error: 0x1
+Error: Simulation failed. 
+Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
+Logs: 
+[
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
+  "Program log: Instruction: InitializeAccount3",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3158 of 1383750 compute units",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 19412 of 1399700 compute units",
+  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success",
+  "Program 11111111111111111111111111111111 invoke [1]",
+  "Transfer: insufficient lamports 83963653, need 116149999",
+  "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
+]. 
+Catch the `SendTransactionError` and call `getLogs()` on it for full details.
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async executeSwaps (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:246:2)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:424:4)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:72:3)
+==================================================
+
+[2025-07-07T22:18:45.308Z] Transaction 3 error:
+Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
 Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
 Program log: CreateIdempotent
 Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
 Program log: Instruction: GetAccountDataSize
-Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1368612 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1394219 compute units
 Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
 Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
 Program 11111111111111111111111111111111 invoke [2]
-Transfer: insufficient lamports 400720, need 2039280
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 1387632 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3158 of 1383750 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 19412 of 1399700 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 11111111111111111111111111111111 invoke [1]
+Transfer: insufficient lamports 83963653, need 116149999
 Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 13049 of 1377093 compute units
-Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL failed: custom program error: 0x1
 Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 5: custom program error: 0x1. 
+Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
 Logs: 
 [
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
-  "Program log: Instruction: GetAccountDataSize",
-  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1368612 compute units",
-  "Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=",
   "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
-  "Program 11111111111111111111111111111111 invoke [2]",
-  "Transfer: insufficient lamports 400720, need 2039280",
-  "Program 11111111111111111111111111111111 failed: custom program error: 0x1",
-  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 13049 of 1377093 compute units",
-  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL failed: custom program error: 0x1"
-]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:45:58.887Z] Transaction 1 error:
-Program 11111111111111111111111111111111 invoke [1]
-Program 11111111111111111111111111111111 success
-Program 11111111111111111111111111111111 invoke [1]
-Program 11111111111111111111111111111111 success
-Program 11111111111111111111111111111111 invoke [1]
-Transfer: insufficient lamports 785000, need 1400000
-Program 11111111111111111111111111111111 failed: custom program error: 0x1
-Error: Simulation failed. 
-Message: Transaction simulation failed: Error processing Instruction 2: custom program error: 0x1. 
-Logs: 
-[
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
+  "Program log: Instruction: InitializeAccount3",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3158 of 1383750 compute units",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 19412 of 1399700 compute units",
+  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success",
   "Program 11111111111111111111111111111111 invoke [1]",
-  "Program 11111111111111111111111111111111 success",
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Program 11111111111111111111111111111111 success",
-  "Program 11111111111111111111111111111111 invoke [1]",
-  "Transfer: insufficient lamports 785000, need 1400000",
+  "Transfer: insufficient lamports 83963653, need 116149999",
   "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
 ]. 
 Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
     at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async executeSwaps (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:246:2)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:424:4)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:72:3)
 ==================================================
 
-[2025-06-10T12:45:58.956Z] Transaction 2 error:
-
+[2025-07-07T22:18:45.415Z] Transaction 4 error:
+Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ComputeBudget111111111111111111111111111111 invoke [1]
+Program ComputeBudget111111111111111111111111111111 success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL invoke [1]
+Program log: CreateIdempotent
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: GetAccountDataSize
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1569 of 1392719 compute units
+Program return: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA pQAAAAAAAAA=
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program log: Initialize the associated token account
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeImmutableOwner
+Program log: Please upgrade to SPL Token 2022 for immutable owner support
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1405 of 1386132 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program log: Instruction: InitializeAccount3
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3158 of 1382250 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 20912 of 1399700 compute units
+Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success
+Program 11111111111111111111111111111111 invoke [1]
+Transfer: insufficient lamports 83963653, need 116149999
+Program 11111111111111111111111111111111 failed: custom program error: 0x1
 Error: Simulation failed. 
-Message: Transaction simulation failed: Attempt to debit an account but found no record of a prior credit.. 
+Message: Transaction simulation failed: Error processing Instruction 3: custom program error: 0x1. 
 Logs: 
-[]. 
+[
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
+  "Program log: Instruction: InitializeAccount3",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 3158 of 1382250 compute units",
+  "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL consumed 20912 of 1399700 compute units",
+  "Program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL success",
+  "Program 11111111111111111111111111111111 invoke [1]",
+  "Transfer: insufficient lamports 83963653, need 116149999",
+  "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
+]. 
 Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
     at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async executeSwaps (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:246:2)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:424:4)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:72:3)
 ==================================================
 
-[2025-06-10T12:45:59.028Z] Transaction 3 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Attempt to debit an account but found no record of a prior credit.. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-06-10T12:45:59.096Z] Transaction 4 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Attempt to debit an account but found no record of a prior credit.. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:482:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:242:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:374:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:74:5)
-==================================================
-
-[2025-07-06T07:30:34.387Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:526:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:464:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:06:15.214Z] Transaction 1 error:
+[2025-07-07T22:21:40.131Z] Transaction 1 error:
 
 Error: Simulation failed. 
 Message: Transaction simulation failed: This transaction has already been processed. 
 Logs: 
 []. 
 Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
     at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async closeSpecificAcc (/root/project/Raydium-CPMM-volume-bot/src/retrieve.ts:310:3)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:474:5)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:72:3)
 ==================================================
 
-[2025-07-07T05:06:19.471Z] Transaction 1 error:
+[2025-07-07T22:26:06.546Z] Transaction 1 error:
 
 Error: Simulation failed. 
 Message: Transaction simulation failed: This transaction has already been processed. 
 Logs: 
 []. 
 Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
     at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:06:19.528Z] Transaction 2 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:06:42.173Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:06:46.728Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:06:46.771Z] Transaction 2 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:09:05.783Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:09:07.325Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:09:07.605Z] Transaction 2 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:09:27.153Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:09:28.678Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T05:09:28.757Z] Transaction 2 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T07:01:12.104Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T07:06:46.989Z] Transaction 8 error:
-Signature KQt46USFWSq6NhHFmctoysQfSKzKKnJT2zNofPrt6ryXDTDcMjzteQut4zARpXJrP8PtEaEoLHsjorR8EGn85wq has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature KQt46USFWSq6NhHFmctoysQfSKzKKnJT2zNofPrt6ryXDTDcMjzteQut4zARpXJrP8PtEaEoLHsjorR8EGn85wq has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:534:25)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T07:45:43.419Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T07:45:44.772Z] Transaction 1 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T07:45:44.813Z] Transaction 2 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: This transaction has already been processed. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:525:22)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T07:46:44.061Z] Transaction 3 error:
-Signature 5FhYkTrcEejRYu39Q3A2ttWwLWQosuEUQpD58xAf1VsWxn9vDRKhm3K6yuvhobpE1MT1XvhV26z5EprTNVakhhrw has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature 5FhYkTrcEejRYu39Q3A2ttWwLWQosuEUQpD58xAf1VsWxn9vDRKhm3K6yuvhobpE1MT1XvhV26z5EprTNVakhhrw has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:534:25)
-    at async closeSpecificAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:303:3)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:463:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
-==================================================
-
-[2025-07-07T10:56:51.383Z] Transaction 4 error:
-Signature 3V4FCngnQr6bPLg2vzgFczTeQ7FR4v8EXBMJPPCsfGC5oqA9dmuHTjzX43h9YNEjVEutxpdX59ZYfGxfprRAGGKm has expired: block height exceeded.
-TransactionExpiredBlockheightExceededError: Signature 3V4FCngnQr6bPLg2vzgFczTeQ7FR4v8EXBMJPPCsfGC5oqA9dmuHTjzX43h9YNEjVEutxpdX59ZYfGxfprRAGGKm has expired: block height exceeded.
-    at Connection.confirmTransactionUsingBlockHeightExceedanceStrategy (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:4047:15)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.confirmTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:3858:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:536:25)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T10:56:51.476Z] Transaction 5 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:527:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T10:56:51.550Z] Transaction 6 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:527:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T10:56:51.633Z] Transaction 7 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:527:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T10:56:51.774Z] Transaction 8 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:527:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T10:56:51.862Z] Transaction 9 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:527:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T10:56:51.955Z] Transaction 10 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Blockhash not found. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:527:22)
-    at async closeAcc (/root/project/Bonk-fun-launchlab-volume-bot/src/retrieve.ts:215:6)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:78:5)
-==================================================
-
-[2025-07-07T11:43:28.606Z] Transaction 2 error:
-
-Error: Simulation failed. 
-Message: Transaction simulation failed: Attempt to debit an account but found no record of a prior credit.. 
-Logs: 
-[]. 
-Catch the `SendTransactionError` and call `getLogs()` on it for full details.
-    at Connection.sendEncodedTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Connection.sendRawTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
-    at async Connection.sendTransaction (/root/project/Bonk-fun-launchlab-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
-    at async sendTransactionsSequentially (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:529:22)
-    at async executeSwaps (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:236:2)
-    at async extender (/root/project/Bonk-fun-launchlab-volume-bot/src/bot.ts:416:5)
-    at async run (/root/project/Bonk-fun-launchlab-volume-bot/main.ts:75:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async closeSpecificAcc (/root/project/Raydium-CPMM-volume-bot/src/retrieve.ts:310:3)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:474:5)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:72:3)
 ==================================================

@@ -254,11 +254,11 @@ export async function extender(config: any = null) {
 	console.log(chalk.green("\n==================== Buy Step ===================="));
 	console.log(chalk.yellow("Follow the instructions below to perform the buy step.\n"));
 
-	let minAndMaxBuy, minAndMaxSell, cyclesIn, delayIn, minAndMaxwalletNumber; //jitoTipAmtInput,
-	let baseMint: PublicKey | undefined = undefined;
+	let minAndMaxBuy, minAndMaxSell, cyclesIn, delayIn, minAndMaxwalletNumber, marketID; //jitoTipAmtInput,
+	let marketPk: PublicKey | undefined = undefined;
 
 	if (config) {
-		baseMint = config.basemint;
+		marketID = config.marketID;
 		minAndMaxBuy = config.minAndMaxBuy;
 		minAndMaxSell = config.minAndMaxSell;
 		cyclesIn = config.cycles;
@@ -266,14 +266,14 @@ export async function extender(config: any = null) {
 		minAndMaxwalletNumber = config.minAndMaxwalletNumber;
 		// jitoTipAmtInput = config.jitoTipAmt.toString();
 	} else {
-		const basemintString = prompt(chalk.cyan("Input token mint: "));
-		const isValidPubkey = await checkMintKey(basemintString);
+		const marketID = prompt(chalk.cyan("Pool pair: "));
+		const isValidPubkey = await checkMintKey(marketID);
 		if (!isValidPubkey) {
-			console.log(chalk.red("Error: Invalid input. Please enter a min key."));
+			console.log(chalk.red("Error: Invalid input. Please enter a Pool key."));
 			process.exit(0x0);
 		}
 		
-		baseMint = new PublicKey(basemintString);
+		marketPk = new PublicKey(marketID);
 		// jitoTipAmtInput = prompt(chalk.cyan("Jito tip in Sol (Ex. 0.01): "));
 
 		// if (jitoTipAmtInput) {
@@ -335,33 +335,33 @@ export async function extender(config: any = null) {
 			console.log(chalk.red("Error: Invalid input. Please enter a cycle input. exam:0.0001"));
 			process.exit(0x0);
 		}
-		///////////////////// For test //////////////////////////////////////
-		// minAndMaxwalletNumber = "1 3";
-		// const basemintString = "2bvTCZrV2wm5sDj2KENEbERzAXo3w499cVB9wDbXbonk";
-		// baseMint = new PublicKey(basemintString);
-		// jitoTipAmtInput = "0.0001";
-		// minAndMaxBuy = "0.001 0.002";
-		// minAndMaxSell = "0.001 0.002";
+		/////////////////// For test //////////////////////////////////////
+		// minAndMaxwalletNumber = "2 3";
+		// marketID = "FTvEjJSKyckm2LXWJrvEbNB6PjpL1FV8M3NJnH8qWdbu";
+		// marketPk = new PublicKey(marketID);
+		// // jitoTipAmtInput = "0.0001";
+		// minAndMaxBuy = "0.001 0.003";
+		// minAndMaxSell = "1 2";
 		// delayIn = "3 5";
-		// cyclesIn = "3";
-		/////////////////////////////////////////////////////////////////////
+		// cyclesIn = "1";
+		///////////////////////////////////////////////////////////////////
 	}
 	// const jitoTipAmt = parseFloat(jitoTipAmtInput) * LAMPORTS_PER_SOL;
 
 	const cycles = parseFloat(cyclesIn);
 
 	// Prepare directories for keypair storage
-	if (!baseMint) {
+	if (!marketPk) {
 		console.log("No mint supply!");
 		
 		return 
 	}
-	const marketKeypairsDir = path.join(keypairsDir, baseMint.toBase58());
+	const marketKeypairsDir = path.join(keypairsDir, marketID);
 	if (!fs.existsSync(marketKeypairsDir)) {
 		fs.mkdirSync(marketKeypairsDir, { recursive: true });
 	}
 
-	const backupDir = path.join(path.dirname(keypairsDir), "backup", baseMint.toBase58());
+	const backupDir = path.join(path.dirname(keypairsDir), "backup", marketID);
 
 	if (!fs.existsSync(backupDir)) {
 		fs.mkdirSync(backupDir, { recursive: true });
@@ -390,7 +390,6 @@ export async function extender(config: any = null) {
 		const delay = getRandomNumber(delayAmounts[0], delayAmounts[1]);
 		const sellAmount = getRandomNumber(sellAmounts[0], sellAmounts[1]);
 		const walletNumber = getRandomNumber(walletNumbers[0], walletNumbers[1]);
-		// const walletNumber = 0;
 
 		// Generate new keypair(s) for the BUY step
 		const keypairs: Keypair[] = [];
@@ -419,12 +418,10 @@ export async function extender(config: any = null) {
 
 		try {
 			// Use the integrated executeSwaps for both pool types
-			if (baseMint) {
-				console.log("------------ buy ------------");
-				
-				// await executeSwaps(keypairs, jitoTipAmt, blockhash, buyAmount, baseMint);
-				await executeSwaps(keypairs, blockhash, buyAmount, baseMint);
-			}
+			console.log("------------ buy ------------");
+			
+			// await executeSwaps(keypairs, jitoTipAmt, blockhash, buyAmount, baseMint);
+			await executeSwaps(keypairs, blockhash, buyAmount, marketPk);
 		} catch (error) {
 			console.error(chalk.red("Error executing swaps:"), error);
 		}
@@ -474,7 +471,7 @@ export async function extender(config: any = null) {
 			const chunk = sellKeypairList.splice(0, 5);
 			try {
 				// await closeSpecificAcc(chunk, baseMint.toBase58(), jitoTipAmt, blockhash);
-				await closeSpecificAcc(chunk, baseMint.toBase58(), blockhash);
+				await closeSpecificAcc(chunk, marketPk.toBase58(), blockhash);
 
 				await new Promise((resolve) => setTimeout(resolve, 6000)); // Small delay between chunks
 			} catch (error) {

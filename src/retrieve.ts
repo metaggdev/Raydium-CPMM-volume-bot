@@ -10,54 +10,56 @@ import { getSwapInstruction } from "./utils";
 
 import { sendBundle, sendTransactionsSequentially } from "./bot";
 import { ComputeBudgetProgram } from "@solana/web3.js";
+import { Raydium, WSOLMint } from "@raydium-io/raydium-sdk-v2";
 require("dotenv").config();
 
 const DEBUG = process.env.DEBUG?.toLowerCase() === "true";
 
-const prompt = promptSync();
 const keypairsDir = "./src/keypairs";
 
 export async function closeAcc() {
 	console.clear();
 	console.log(chalk.red("\n==================== Retrieve SOL ===================="));
 	console.log(chalk.yellow("Follow the instructions below to retrieve SOL.\n"));
+	const cluster = "mainnet";
 
-	const tokenMint = prompt(chalk.cyan("Enter your Token Mint: "));
-	// const tokenMint = "2bvTCZrV2wm5sDj2KENEbERzAXo3w499cVB9wDbXbonk";
-	const keypairsPath = path.join(keypairsDir, tokenMint);
+	const poolId = prompt(chalk.cyan("Enter your pool Id: "));
 
-	const delaySell = prompt(chalk.cyan("Delay between sells in MS (Ex. 2): "));
-	// const delaySell = "3";
+	if (!poolId) {
+		console.log(chalk.red("Error: Invalid input. Please enter a Pool key."));
+		return
+	}
+	// const poolId = "FTvEjJSKyckm2LXWJrvEbNB6PjpL1FV8M3NJnH8qWdbu";
+	const keypairsPath = path.join(keypairsDir, poolId);
+
+	// const delaySell = prompt(chalk.cyan("Delay between sells in MS (Ex. 2): "));
+	const delaySell = "3";
 	const delaySellIn = parseInt(delaySell, 10);
 
 	if (!fs.existsSync(keypairsPath)) {
-		console.log(chalk.red(`No keypairs found for Pair ID/Token: ${tokenMint}`));
+		console.log(chalk.red(`No keypairs found for Pair ID/Token: ${poolId}`));
 		process.exit(0);
 	}
-
-	// const jitoTipAmtInput = prompt(chalk.cyan("Jito tip in Sol (Ex. 0.01): "));
-	const jitoTipAmtInput = "0.0001";
-	const jitoTipAmt = parseFloat(jitoTipAmtInput) * LAMPORTS_PER_SOL;
-
-	if (jitoTipAmtInput) {
-		const tipValue = parseFloat(jitoTipAmtInput);
-		if (tipValue >= 0.1) {
-			console.log(chalk.red("Error: Tip value is too high. Please enter a value less than or equal to 0.1."));
-			process.exit(0);
-		}
-	} else {
-		console.log(chalk.red("Error: Invalid input. Please enter a valid number."));
-		process.exit(0);
-	}
-
-	// Try to interpret marketID as both a pool ID and a token mint
-	const tokenKey = new PublicKey(tokenMint);
-
 	// Now proceed with closing all keypairs in this directory
 	let keypairsExist = checkKeypairsExist(keypairsPath);
-
+	
 	while (keypairsExist) {
 		const keypairs = loadKeypairs(keypairsPath);
+		let owner = keypairs.length > 0 ? keypairs[0] : Keypair.generate();
+	
+		const raydium = await Raydium.load({
+			owner,
+			connection,
+			cluster,
+			disableFeatureCheck: true,
+			disableLoadToken: true,
+			blockhashCommitment: "finalized",
+		});
+		// Try to interpret marketID as both a pool ID and a token mint
+		const poolIdPk = new PublicKey(poolId);
+		let poolInfo = await raydium.cpmm.getRpcPoolInfo(poolId);
+		const tokenKey = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintB : poolInfo.mintA;
+		const decimal = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintDecimalB : poolInfo.mintDecimalA;
 		let txsSigned: VersionedTransaction[] = [];
 		let maxSize = 0;
 
@@ -81,7 +83,6 @@ export async function closeAcc() {
 				if (accountInfo !== null) {
 					const balanceResponse = await connection.getTokenAccountBalance(tokenAcc);
 					tokenAmount = balanceResponse.value.uiAmount || 0;
-					console.log("tokenAmount:", tokenAmount);
 					
 					tokenAmountString = balanceResponse.value.uiAmountString || "0";
 					tokenAccountExists = accountInfo !== null && tokenAmount > 0;
@@ -108,10 +109,7 @@ export async function closeAcc() {
 				}
 
 				if (tokenAccountExists) {
-					const swapAccountKey = {
-						inputMint : tokenKey,
-						payer : keypair.publicKey
-					}
+
 					const modifyComputeUnits = ComputeBudgetProgram.setComputeUnitLimit({
 						units: 200000000,
 					});
@@ -119,13 +117,14 @@ export async function closeAcc() {
 						microLamports: 10000,
 					});
 					instructionsForChunk = [modifyComputeUnits, modifyComputeFee]
+					tokenAmount = tokenAmount * 10 ** decimal
 					// Sell instructions
-					// const sellInstruction = await getSwapInstruction(tokenAmount, 0, swapAccountKey, tokenKey);
+					const sellInstruction = await getSwapInstruction(tokenAmount, poolIdPk, poolInfo,  spl.NATIVE_MINT, wsolAcc, tokenKey, tokenAcc, keypair, "sell");
 
-					// if (sellInstruction && tokenAmount > 0) {
-					// 	instructionsForChunk.push(sellInstruction);
-					// 	console.log(chalk.green(`Added Bonk.fun token sell instructions for ${tokenAmountString} tokens`));
-					// }
+					if (sellInstruction && tokenAmount > 0) {
+						instructionsForChunk.push(sellInstruction);
+						console.log(chalk.green(`Added Bonk.fun token sell instructions for ${tokenAmountString} tokens`));
+					}
 
 					// Burn token account
 					let baseTokenBurnInstruction = spl.createCloseAccountInstruction(tokenAcc, wallet.publicKey, keypair.publicKey);
@@ -228,20 +227,35 @@ export async function closeAcc() {
 	await pause();
 }
 
-export async function closeSpecificAcc(keypairs: Keypair[], mint: string, block: string | Blockhash) {
-	const keypairsPath = path.join(keypairsDir, mint);
+export async function closeSpecificAcc(keypairs: Keypair[], poolId: string, block: string | Blockhash) {
+	const keypairsPath = path.join(keypairsDir, poolId);
 	if (!fs.existsSync(keypairsPath)) {
-		console.log(chalk.red(`No keypairs found for mint: ${mint}`));
+		console.log(chalk.red(`No keypairs found for market: ${poolId}`));
 		return;
 	}
+	const cluster = "mainnet";
 
 	const BundledTxns: VersionedTransaction[] = [];
+	let owner = keypairs.length > 0 ? keypairs[0] : Keypair.generate();
+	const raydium = await Raydium.load({
+		owner,
+		connection,
+		cluster,
+		disableFeatureCheck: true,
+		disableLoadToken: true,
+		blockhashCommitment: "finalized",
+	});
+	// Try to interpret marketID as both a pool ID and a token mint
+	const poolIdPk = new PublicKey(poolId);
+	let poolInfo = await raydium.cpmm.getRpcPoolInfo(poolId);
+	const tokenKey = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintB : poolInfo.mintA;
+	const decimal = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintDecimalB : poolInfo.mintDecimalA;
 
 	for (let i = 0; i < keypairs.length; i++) {
 		const keypair = keypairs[i];
 
 		const instructionsForChunk: TransactionInstruction[] = [];
-		const tokenAcc = await spl.getAssociatedTokenAddress(new PublicKey(mint), keypair.publicKey);
+		const tokenAcc = await spl.getAssociatedTokenAddress(tokenKey, keypair.publicKey);
 		const wsolAcc = await spl.getAssociatedTokenAddress(spl.NATIVE_MINT, keypair.publicKey);
 
 		// Verify accounts exist
@@ -251,17 +265,14 @@ export async function closeSpecificAcc(keypairs: Keypair[], mint: string, block:
 		if (tokenAccountExists) {
 			// Get token balance for selling
 			const tokenBalance = await connection.getTokenAccountBalance(tokenAcc);
-			const swapAccountKey = {
-				inputMint : new PublicKey(mint),
-				payer : keypair.publicKey
-			}
-			// Sell instructions - convert tokens to WSOL
-			// const sellInstruction = await getSwapInstruction(Number(tokenBalance.value.uiAmountString), 0, swapAccountKey, new PublicKey(mint));
 
-			// if (sellInstruction) {
-			// 	instructionsForChunk.push(sellInstruction);
-			// 	console.log(chalk.green(`Added bonk.fun token sell instructions for ${Number(tokenBalance.value.uiAmountString)} tokens`));
-			// }
+			// Sell instructions - convert tokens to WSOL
+			const sellInstruction = await getSwapInstruction(Number(tokenBalance.value.uiAmountString) * 10 ** decimal, poolIdPk, poolInfo,  spl.NATIVE_MINT, wsolAcc, tokenKey, tokenAcc, keypair, "sell");
+
+			if (sellInstruction) {
+				instructionsForChunk.push(sellInstruction);
+				console.log(chalk.green(`Added bonk.fun token sell instructions for ${Number(tokenBalance.value.uiAmountString)} tokens`));
+			}
 			
 			// Burn token account
 			let baseTokenBurnInstruction = spl.createCloseAccountInstruction(tokenAcc, wallet.publicKey, keypair.publicKey);
