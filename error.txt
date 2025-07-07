@@ -214,3 +214,54 @@ Catch the `SendTransactionError` and call `getLogs()` on it for full details.
     at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:474:5)
     at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:72:3)
 ==================================================
+
+[2025-07-07T23:03:29.667Z] Transaction 1 error:
+
+Error: Simulation failed. 
+Message: Transaction simulation failed: This transaction has already been processed. 
+Logs: 
+[]. 
+Catch the `SendTransactionError` and call `getLogs()` on it for full details.
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async closeSpecificAcc (/root/project/Raydium-CPMM-volume-bot/src/retrieve.ts:314:3)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:474:5)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:77:5)
+==================================================
+
+[2025-07-07T23:03:31.669Z] Transaction 1 error:
+
+Error: Simulation failed. 
+Message: Transaction simulation failed: This transaction has already been processed. 
+Logs: 
+[]. 
+Catch the `SendTransactionError` and call `getLogs()` on it for full details.
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async closeSpecificAcc (/root/project/Raydium-CPMM-volume-bot/src/retrieve.ts:314:3)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:474:5)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:77:5)
+==================================================
+
+[2025-07-07T23:03:32.611Z] Transaction 2 error:
+
+Error: Simulation failed. 
+Message: Transaction simulation failed: This transaction has already been processed. 
+Logs: 
+[]. 
+Catch the `SendTransactionError` and call `getLogs()` on it for full details.
+    at Connection.sendEncodedTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6047:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Connection.sendRawTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:6003:20)
+    at async Connection.sendTransaction (/root/project/Raydium-CPMM-volume-bot/node_modules/@solana/web3.js/src/connection.ts:5952:14)
+    at async sendTransactionsSequentially (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:536:22)
+    at async closeSpecificAcc (/root/project/Raydium-CPMM-volume-bot/src/retrieve.ts:314:3)
+    at async extender (/root/project/Raydium-CPMM-volume-bot/src/bot.ts:474:5)
+    at async run (/root/project/Raydium-CPMM-volume-bot/main.ts:77:5)
+==================================================

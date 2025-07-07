@@ -434,7 +434,7 @@ export async function checkMintKey(input: string) {
     const isValid = syncSha256Validation({ address: input, onCurve: true });
     
     const pubkey = new PublicKey(input);
-    return PublicKey.isOnCurve(pubkey.toBytes()) && isValid;
+    return isValid;
   } catch {
     return false;
   }

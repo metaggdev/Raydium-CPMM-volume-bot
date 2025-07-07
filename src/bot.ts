@@ -266,7 +266,7 @@ export async function extender(config: any = null) {
 		minAndMaxwalletNumber = config.minAndMaxwalletNumber;
 		// jitoTipAmtInput = config.jitoTipAmt.toString();
 	} else {
-		const marketID = prompt(chalk.cyan("Pool pair: "));
+		marketID = prompt(chalk.cyan("Pool pair: "));
 		const isValidPubkey = await checkMintKey(marketID);
 		if (!isValidPubkey) {
 			console.log(chalk.red("Error: Invalid input. Please enter a Pool key."));

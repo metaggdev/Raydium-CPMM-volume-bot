@@ -15,6 +15,7 @@ require("dotenv").config();
 
 const DEBUG = process.env.DEBUG?.toLowerCase() === "true";
 
+const prompt = promptSync();
 const keypairsDir = "./src/keypairs";
 
 export async function closeAcc() {
@@ -24,11 +25,6 @@ export async function closeAcc() {
 	const cluster = "mainnet";
 
 	const poolId = prompt(chalk.cyan("Enter your pool Id: "));
-
-	if (!poolId) {
-		console.log(chalk.red("Error: Invalid input. Please enter a Pool key."));
-		return
-	}
 	// const poolId = "FTvEjJSKyckm2LXWJrvEbNB6PjpL1FV8M3NJnH8qWdbu";
 	const keypairsPath = path.join(keypairsDir, poolId);
 

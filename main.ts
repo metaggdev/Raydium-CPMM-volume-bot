@@ -77,6 +77,8 @@ async function run() {
 				await extender();
 				break;
 			case "2":
+				await closeAcc();
+
 				break;
 			
 			case "exit":
