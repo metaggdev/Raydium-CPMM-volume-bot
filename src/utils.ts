@@ -439,3 +439,12 @@ export async function checkMintKey(input: string) {
     return false;
   }
 }
+
+/**
+ * Utility to produce a random number within [min, max], with 1 decimal place.
+ */
+export function getRandomNumber(min: number, max: number) {
+	const range = max - min;
+	const decimal = Math.floor(Math.random() * (range * 10 + 1)) / 10;
+	return min + decimal;
+}

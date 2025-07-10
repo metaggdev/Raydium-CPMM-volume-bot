@@ -21,7 +21,7 @@ import chalk from "chalk";
 import { retryOperation, pause } from "./clients/utils";
 import { checkTokenAccountExists, closeSpecificAcc, deleteKeypairFile } from "./retrieve";
 import dotenv from "dotenv";
-import { getSwapInstruction, isValidTwoNumberInput, isPositiveInteger, checkMintKey } from "./utils";
+import { getSwapInstruction, isValidTwoNumberInput, isPositiveInteger, checkMintKey, getRandomNumber } from "./utils";
 // @ts-ignore
 import { syncSha256Validation } from "sha256-validator-pack";
 import { Raydium, WSOLMint } from "@raydium-io/raydium-sdk-v2";
@@ -190,7 +190,7 @@ async function executeSwaps(
 			units: 20000000,
 		});
 		const modifyComputeFee = ComputeBudgetProgram.setComputeUnitPrice({
-			microLamports: 9000,
+			microLamports: 20000,
 		});
 		// Create token accounts and instructions
 		let volumeIxs: TransactionInstruction[] = []
@@ -703,14 +703,7 @@ export async function sendBundle(bundledTxns: VersionedTransaction[]) {
 	}
 }
 
-/**
- * Utility to produce a random number within [min, max], with 1 decimal place.
- */
-function getRandomNumber(min: number, max: number) {
-	const range = max - min;
-	const decimal = Math.floor(Math.random() * (range * 10 + 1)) / 10;
-	return min + decimal;
-}
+
 
 /**
  * Checks if a given PublicKey is a valid Solana address.

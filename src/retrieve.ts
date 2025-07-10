@@ -6,7 +6,7 @@ import path from "path";
 import promptSync from "prompt-sync";
 import chalk from "chalk";
 import { retryOperation, pause } from "./clients/utils";
-import { getSwapInstruction } from "./utils";
+import { checkMintKey, getRandomNumber, getSwapInstruction, isValidTwoNumberInput } from "./utils";
 
 import { sendBundle, sendTransactionsSequentially } from "./bot";
 import { ComputeBudgetProgram } from "@solana/web3.js";
@@ -26,11 +26,26 @@ export async function closeAcc() {
 
 	const poolId = prompt(chalk.cyan("Enter your pool Id: "));
 	// const poolId = "FTvEjJSKyckm2LXWJrvEbNB6PjpL1FV8M3NJnH8qWdbu";
-	const keypairsPath = path.join(keypairsDir, poolId);
+	const isValidPubkey = await checkMintKey(poolId);
+	
+	if (!isValidPubkey) {
+		console.log(chalk.red("Error: Invalid input. Please enter a Pool key."));
+		process.exit(0x0);
+	}
 
+	const keypairsPath = path.join(keypairsDir, poolId);
+	let delayIn = prompt(chalk.cyan("Min and Max Delay between swaps in seconds Example MIN_DELAY MAX_DELAY: "));
+	let isMaxMinValid = isValidTwoNumberInput(delayIn);
+
+	if (!isMaxMinValid) {
+		console.log(chalk.red("Error: Invalid input. Please enter a delay input. exam:2 4"));
+		process.exit(0x0);
+	}
+
+	const delayAmounts = delayIn.split(" ").map(Number);
+	const delaySellIn = getRandomNumber(delayAmounts[0], delayAmounts[1]);
 	// const delaySell = prompt(chalk.cyan("Delay between sells in MS (Ex. 2): "));
-	const delaySell = "3";
-	const delaySellIn = parseInt(delaySell, 10);
+	// const delaySell = "3";
 
 	if (!fs.existsSync(keypairsPath)) {
 		console.log(chalk.red(`No keypairs found for Pair ID/Token: ${poolId}`));
@@ -57,7 +72,6 @@ export async function closeAcc() {
 		const tokenKey = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintB : poolInfo.mintA;
 		const decimal = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintDecimalB : poolInfo.mintDecimalA;
 		let txsSigned: VersionedTransaction[] = [];
-		let maxSize = 0;
 
 		for (let i = 0; i < keypairs.length; i++) {
 			let { blockhash } = await retryOperation(() => connection.getLatestBlockhash());
@@ -110,7 +124,7 @@ export async function closeAcc() {
 						units: 200000000,
 					});
 					const modifyComputeFee = ComputeBudgetProgram.setComputeUnitPrice({
-						microLamports: 10000,
+						microLamports: 20000,
 					});
 					instructionsForChunk = [modifyComputeUnits, modifyComputeFee]
 					tokenAmount = tokenAmount * 10 ** decimal
@@ -154,9 +168,9 @@ export async function closeAcc() {
 					recentBlockhash: blockhash,
 					instructions: [drainBalanceIxn],
 				}).compileToV0Message();
-
-				const drainTx = new VersionedTransaction(drainMessage);
-				drainTx.sign([wallet, keypair]);
+				instructionsForChunk.push(drainBalanceIxn);
+				// const drainTx = new VersionedTransaction(drainMessage);
+				// drainTx.sign([wallet, keypair]);
 
 				// Jito tip
 				// const tipSwapIxn = SystemProgram.transfer({
@@ -180,40 +194,38 @@ export async function closeAcc() {
 					txsSigned.push(versionedTx);
 				}
 
-				txsSigned.push(drainTx);
-				maxSize++;
+				// txsSigned.push(drainTx);
 			} else {
 				console.log(chalk.yellow("No token, WSOL, or significant SOL balance found. Skipping transaction."));
 				deleteKeypairFile(keypair, keypairsPath);
 			}
 
-			// Send in batches of 5
-			if (maxSize === 5 || i === keypairs.length - 1) {
-				if (txsSigned.length > 0) {
-					if (DEBUG) {
-						for (const tx of txsSigned) {
-							try {
-								const simulationResult = await connection.simulateTransaction(tx, { commitment: "confirmed" });
-								if (simulationResult.value.err) {
-									const errorMessage = `Simulation tx error: ${JSON.stringify(simulationResult.value.err, null, 2)}`;
-									fs.appendFileSync("errorlog.txt", `${new Date().toISOString()} - ${errorMessage}\n`);
-									console.log(chalk.red("Error simulating saved to errorlog.txt"));
-								} else {
-									console.log("Transaction simulation success.");
-								}
-							} catch (error) {
-								console.error("Error during simulation:", error);
+			if (txsSigned.length > 0) {
+				if (DEBUG) {
+					for (const tx of txsSigned) {
+						try {
+							const simulationResult = await connection.simulateTransaction(tx, { commitment: "confirmed" });
+							if (simulationResult.value.err) {
+								const errorMessage = `Simulation tx error: ${JSON.stringify(simulationResult.value.err, null, 2)}`;
+								fs.appendFileSync("errorlog.txt", `${new Date().toISOString()} - ${errorMessage}\n`);
+								console.log(chalk.red("Error simulating saved to errorlog.txt"));
+							} else {
+								console.log("Transaction simulation success.");
 							}
+						} catch (error) {
+							console.error("Error during simulation:", error);
 						}
 					}
-					// await sendBundleWithRetry(txsSigned);
-					await sendTransactionsSequentially(txsSigned);
-					txsSigned = [];
-					maxSize = 0;
-					console.log(chalk.blue(`Waiting ${delaySellIn} s`));
-					await delay(delaySellIn);
 				}
+				// await sendBundleWithRetry(txsSigned);
+				await sendTransactionsSequentially(txsSigned);
+				txsSigned = [];
+				console.log(chalk.blue(`Waiting ${delaySellIn} s`));
+				await delay(delaySellIn);
 			}
+			// Send in batches of 5
+			// if (maxSize === 5 || i === keypairs.length - 1) {
+			// }
 			console.log("");
 		}
 		keypairsExist = checkKeypairsExist(keypairsPath);
@@ -231,7 +243,6 @@ export async function closeSpecificAcc(keypairs: Keypair[], poolId: string, bloc
 	}
 	const cluster = "mainnet";
 
-	const BundledTxns: VersionedTransaction[] = [];
 	let owner = keypairs.length > 0 ? keypairs[0] : Keypair.generate();
 	const raydium = await Raydium.load({
 		owner,
@@ -246,11 +257,12 @@ export async function closeSpecificAcc(keypairs: Keypair[], poolId: string, bloc
 	let poolInfo = await raydium.cpmm.getRpcPoolInfo(poolId);
 	const tokenKey = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintB : poolInfo.mintA;
 	const decimal = poolInfo.mintA.equals(WSOLMint) ? poolInfo.mintDecimalB : poolInfo.mintDecimalA;
-
+	
 	for (let i = 0; i < keypairs.length; i++) {
+		const BundledTxns: VersionedTransaction[] = [];
 		const keypair = keypairs[i];
 
-		const instructionsForChunk: TransactionInstruction[] = [];
+		let instructionsForChunk: TransactionInstruction[] = [];
 		const tokenAcc = await spl.getAssociatedTokenAddress(tokenKey, keypair.publicKey);
 		const wsolAcc = await spl.getAssociatedTokenAddress(spl.NATIVE_MINT, keypair.publicKey);
 
@@ -261,7 +273,13 @@ export async function closeSpecificAcc(keypairs: Keypair[], poolId: string, bloc
 		if (tokenAccountExists) {
 			// Get token balance for selling
 			const tokenBalance = await connection.getTokenAccountBalance(tokenAcc);
-
+			const modifyComputeUnits = ComputeBudgetProgram.setComputeUnitLimit({
+				units: 200000000,
+			});
+			const modifyComputeFee = ComputeBudgetProgram.setComputeUnitPrice({
+				microLamports: 20000,
+			});
+			instructionsForChunk = [modifyComputeUnits, modifyComputeFee];
 			// Sell instructions - convert tokens to WSOL
 			const sellInstruction = await getSwapInstruction(Number(tokenBalance.value.uiAmountString) * 10 ** decimal, poolIdPk, poolInfo,  spl.NATIVE_MINT, wsolAcc, tokenKey, tokenAcc, keypair, "sell");
 
@@ -285,13 +303,13 @@ export async function closeSpecificAcc(keypairs: Keypair[], poolId: string, bloc
 		const balance = await connection.getBalance(keypair.publicKey);
 		console.log("balance:", balance);
 		
-		const feeEstimate = 10000;
+		const feeEstimate = 33000;
 		const transferAmount = balance - feeEstimate > 0 ? balance - feeEstimate : 0;
 
 		const drainBalanceIxn = SystemProgram.transfer({
 			fromPubkey: keypair.publicKey,
 			toPubkey: wallet.publicKey,
-			lamports: balance - 5000,
+			lamports: transferAmount,
 		});
 		instructionsForChunk.push(drainBalanceIxn);
 
