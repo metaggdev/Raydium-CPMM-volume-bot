@@ -11,6 +11,7 @@ import { checkMintKey, getRandomNumber, getSwapInstruction, isValidTwoNumberInpu
 import { sendBundle, sendTransactionsSequentially } from "./bot";
 import { ComputeBudgetProgram } from "@solana/web3.js";
 import { Raydium, WSOLMint } from "@raydium-io/raydium-sdk-v2";
+import { BN } from "bn.js";
 require("dotenv").config();
 
 const DEBUG = process.env.DEBUG?.toLowerCase() === "true";
@@ -25,7 +26,7 @@ export async function closeAcc() {
 	const cluster = "mainnet";
 
 	const poolId = prompt(chalk.cyan("Enter your pool Id: "));
-	// const poolId = "FTvEjJSKyckm2LXWJrvEbNB6PjpL1FV8M3NJnH8qWdbu";
+	// const poolId = "FbqkWtayk6oduLBT2tCHq9K1Dbc1jQdzDwCabf9CpRSL";
 	const isValidPubkey = await checkMintKey(poolId);
 	
 	if (!isValidPubkey) {
@@ -35,6 +36,7 @@ export async function closeAcc() {
 
 	const keypairsPath = path.join(keypairsDir, poolId);
 	let delayIn = prompt(chalk.cyan("Min and Max Delay between swaps in seconds Example MIN_DELAY MAX_DELAY: "));
+	// let delayIn = "2 3";
 	let isMaxMinValid = isValidTwoNumberInput(delayIn);
 
 	if (!isMaxMinValid) {
@@ -127,9 +129,17 @@ export async function closeAcc() {
 						microLamports: 20000,
 					});
 					instructionsForChunk = [modifyComputeUnits, modifyComputeFee]
-					tokenAmount = tokenAmount * 10 ** decimal
+					
+					const [whole, fraction = ""] = tokenAmountString.split(".");
+					const fractionPadded = (fraction + "0".repeat(decimal)).slice(0, decimal);
+
+					const amountBN = new BN(whole).mul(new BN(10).pow(new BN(decimal)))
+									.add(new BN(fractionPadded));
+
+					console.log("amountBN", Number(amountBN));
+					
 					// Sell instructions
-					const sellInstruction = await getSwapInstruction(tokenAmount, poolIdPk, poolInfo,  spl.NATIVE_MINT, wsolAcc, tokenKey, tokenAcc, keypair, "sell");
+					const sellInstruction = await getSwapInstruction(Number(amountBN), poolIdPk, poolInfo,  spl.NATIVE_MINT, wsolAcc, tokenKey, tokenAcc, keypair, "sell");
 
 					if (sellInstruction && tokenAmount > 0) {
 						instructionsForChunk.push(sellInstruction);
@@ -273,6 +283,8 @@ export async function closeSpecificAcc(keypairs: Keypair[], poolId: string, bloc
 		if (tokenAccountExists) {
 			// Get token balance for selling
 			const tokenBalance = await connection.getTokenAccountBalance(tokenAcc);
+			const tokenAmount = tokenBalance.value.uiAmount;
+			const tokenAmountStr = tokenBalance.value.uiAmountString;
 			const modifyComputeUnits = ComputeBudgetProgram.setComputeUnitLimit({
 				units: 200000000,
 			});
@@ -280,8 +292,19 @@ export async function closeSpecificAcc(keypairs: Keypair[], poolId: string, bloc
 				microLamports: 20000,
 			});
 			instructionsForChunk = [modifyComputeUnits, modifyComputeFee];
+			if (!tokenAmountStr) {
+				console.log("Token balance string fetch error!");
+				return
+			}
+			const [whole, fraction = ""] = tokenAmountStr.split(".");
+			const fractionPadded = (fraction + "0".repeat(decimal)).slice(0, decimal);
+
+			const amountBN = new BN(whole).mul(new BN(10).pow(new BN(decimal)))
+							.add(new BN(fractionPadded));
+
+			console.log("amountBN", Number(amountBN));
 			// Sell instructions - convert tokens to WSOL
-			const sellInstruction = await getSwapInstruction(Number(tokenBalance.value.uiAmountString) * 10 ** decimal, poolIdPk, poolInfo,  spl.NATIVE_MINT, wsolAcc, tokenKey, tokenAcc, keypair, "sell");
+			const sellInstruction = await getSwapInstruction(Number(amountBN), poolIdPk, poolInfo,  spl.NATIVE_MINT, wsolAcc, tokenKey, tokenAcc, keypair, "sell");
 
 			if (sellInstruction) {
 				instructionsForChunk.push(sellInstruction);
